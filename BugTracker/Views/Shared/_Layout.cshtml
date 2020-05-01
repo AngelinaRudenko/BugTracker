@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title BugTracker</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand font-weight-bold" href="~/Views/Home/Index.cshtml">BugTracker</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="form-inline my-2 my-lg-0 navbar-nav mr-auto">
+                <a class="nav-link">@Html.ActionLink("Home", "Index", "Home")<span class="sr-only">(current)</span></a>
+            </form>
+            @*@Html.Partial("_LoginPartial")*@
+            @using Microsoft.AspNet.Identity
+            @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <form class="form-inline my-2 my-lg-0 navbar-right">
+                        <a class="nav-link">@Html.ActionLink(User.Identity.GetUserName() + " ;)", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<span class="sr-only">(current)</span></a>
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                    </form>
+                }
+            }
+            else
+            {
+                <form class="form-inline my-2 my-lg-0 navbar-right">
+                    <a class="nav-link">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<span class="sr-only">(current)</span></a>
+                    <a class="nav-link">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<span class="sr-only">(current)</span></a>
+                </form>
+            }
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - ASP.NET Application made by Angelina Rudenko</p>
+        </footer>
+    </div>
+
+    @*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@
+    @*<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
