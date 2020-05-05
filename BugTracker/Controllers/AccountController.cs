@@ -32,25 +32,9 @@ namespace BugTracker.Controllers
 
         public ActionResult Index()
         {
-            //Ленивая подгрузка - загрузка по требованию
             var id = User.Identity.GetUserId();
-            var bugs = db.Bugs.Where(x => x.ApplicationUser.Id == id).ToList();
-            return View(bugs);
-        }
-
-        [HttpGet]
-        public ActionResult Add()
-        {
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Add(Bug bug)
-        {
-            db.Bugs.Add(bug);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var user = db.Users.FirstOrDefault(x => x.Id ==id);
+            return View(user);
         }
 
         public ApplicationSignInManager SignInManager
@@ -131,7 +115,7 @@ namespace BugTracker.Controllers
             {
                 try
                 {
-                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name, Surname = model.Surname, Password = model.Password };
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name, Surname = model.Surname };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {

@@ -12,7 +12,7 @@ namespace BugTracker.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("Index", "Bug");
             }
             else
                 return View();

@@ -24,12 +24,18 @@
             @using Microsoft.AspNet.Identity
             @if (Request.IsAuthenticated)
             {
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+
+                <a class="nav-link">@Html.ActionLink("Me", "Index", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })<span class="sr-only">(current)</span></a>
+                <a class="nav-link">@Html.ActionLink("Manage", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<span class="sr-only">(current)</span></a>
                 using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                 {
                     @Html.AntiForgeryToken()
                     <form class="form-inline my-2 my-lg-0 navbar-right">
-                        <a class="nav-link">@Html.ActionLink(User.Identity.GetUserName() + " ;)", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<span class="sr-only">(current)</span></a>
-                        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                        <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
                     </form>
                 }
             }

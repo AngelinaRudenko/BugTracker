@@ -20,9 +20,6 @@ namespace BugTracker.Models
         public string Age { get; set; }
         public string Country { get; set; }
         public string Company { get; set; }
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
 
         //Db
         public ICollection<Bug> Bugs { get; set; }
@@ -48,6 +45,7 @@ namespace BugTracker.Models
         public string ExpectedResult { get; set; }
         //Attachment
 
+        public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
     }
 

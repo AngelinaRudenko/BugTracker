@@ -1,43 +1,20 @@
-﻿@using BugTracker.Models
+﻿@model BugTracker.Models.ApplicationUser
+
 @{
     ViewBag.Title = "Index";
 }
 
-<div class="instruments_panel">
-    <a href="/Account/Add"><button type="button" class="btn btn-success">Add</button></a>
-    <button type="button" class="btn btn-primary">Edit</button>
-    <button type="button" class="btn btn-danger">Delete</button>
-</div>
-
-<div class="bags_list table-responsive-lg">
-    <table class="table table-bordered table-hover">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Headline</th>
-                <th scope="col">Severity</th>
-                <th scope="col">ErrorType</th>
-                <th scope="col">Description</th>
-                <th scope="col">ActualResult</th>
-                <th scope="col">ExpectedResult</th>
-                <th scope="col">Attachment</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (Bug bug in Model)
-            {
-                <tr>
-                    <td scope="row">@bug.Date</td>
-                    <td>@bug.Headline</td>
-                    <td>@bug.Severity</td>
-                    <td>@bug.ErrorType</td>
-                    <td>@bug.Description</td>
-                    @*<td>@bug.ActualResult</td>
-                    <td>@bug.ExpectedResult</td>
-                    <td>@bug.Attachment</td>*@
-                    <td>Show more</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div>
+    <h2>@Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h2>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Email)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Age)</dt>
+        <dd>@Html.DisplayFor(model => model.Age)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Country)</dt>
+        <dd>@Html.DisplayFor(model => model.Country)</dd>
+        <dt>@Html.DisplayNameFor(model => model.Company)</dt>
+        <dd>@Html.DisplayFor(model => model.Company)</dd>
+    </dl>
 </div>

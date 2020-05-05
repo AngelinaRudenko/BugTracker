@@ -98,13 +98,11 @@ C:\Users\Angelina\Documents\BugTracker\BugTracker\bin\Microsoft.Owin.Security.Tw
 C:\Users\Angelina\Documents\BugTracker\BugTracker\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Angelina\Documents\BugTracker\BugTracker\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\Angelina\Documents\BugTracker\BugTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.InitialCreate.resources
-C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.DataMigration1.resources
-C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.ChangedBugclass.resources
-C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.csproj.GenerateResource.cache
 C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.csproj.CoreCompileInputs.cache
 C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.csproj.CopyComplete
 C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.dll
 C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.pdb
 C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.csprojAssemblyReference.cache
-C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.ThirdMigration.resources
+C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.Initial.resources
+C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.csproj.GenerateResource.cache
+C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.Thirdmigration.resources

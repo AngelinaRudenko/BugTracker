@@ -165,26 +165,19 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BugController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004221735158_InitialCreate.cs" />
-    <Compile Include="Migrations\202004221735158_InitialCreate.designer.cs">
-      <DependentUpon>202004221735158_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202005011434063_Initial.cs" />
+    <Compile Include="Migrations\202005011434063_Initial.designer.cs">
+      <DependentUpon>202005011434063_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004301019498_DataMigration1.cs" />
-    <Compile Include="Migrations\202004301019498_DataMigration1.designer.cs">
-      <DependentUpon>202004301019498_DataMigration1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005011220041_Changed Bug class.cs" />
-    <Compile Include="Migrations\202005011220041_Changed Bug class.designer.cs">
-      <DependentUpon>202005011220041_Changed Bug class.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005011313385_ThirdMigration.cs" />
-    <Compile Include="Migrations\202005011313385_ThirdMigration.designer.cs">
-      <DependentUpon>202005011313385_ThirdMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202005040913136_Third migration.cs" />
+    <Compile Include="Migrations\202005040913136_Third migration.designer.cs">
+      <DependentUpon>202005040913136_Third migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -340,8 +333,9 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Bug\Edit.cshtml" />
+    <Content Include="Views\Bug\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="Views\Account\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -356,17 +350,11 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004221735158_InitialCreate.resx">
-      <DependentUpon>202004221735158_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005011434063_Initial.resx">
+      <DependentUpon>202005011434063_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004301019498_DataMigration1.resx">
-      <DependentUpon>202004301019498_DataMigration1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005011220041_Changed Bug class.resx">
-      <DependentUpon>202005011220041_Changed Bug class.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005011313385_ThirdMigration.resx">
-      <DependentUpon>202005011313385_ThirdMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005040913136_Third migration.resx">
+      <DependentUpon>202005040913136_Third migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
