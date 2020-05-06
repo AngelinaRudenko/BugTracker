@@ -33,9 +33,71 @@ namespace BugTracker.Controllers
         public ActionResult Index()
         {
             var id = User.Identity.GetUserId();
-            var user = db.Users.FirstOrDefault(x => x.Id ==id);
+            var user = db.Users.FirstOrDefault(x => x.Id == id);
             return View(user);
         }
+
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Search(string text)
+        {
+            if (!String.IsNullOrEmpty(text))
+            {
+                //var users = db.Users.Where(x => $"{x.Name} {x.Surname}".Contains(text));
+                var users = db.Users.ToList();
+                foreach (ApplicationUser user in users.ToArray())
+                {
+                    if (!$"{user.Name} {user.Surname}".ToLower().Contains(text.ToLower()) || user.Id == User.Identity.GetUserId())
+                    {
+                        users.Remove(user);
+                    }
+                }
+                return View(users);
+            }
+            return HttpNotFound();
+        }
+
+        //Think about it
+        [HttpGet]
+        public void AddFriend(string id)
+        {
+            ApplicationUser personExist = db.Users.FirstOrDefault(x => x.Id ==id);
+            if (personExist != null)
+            {
+                string myId = User.Identity.GetUserId();
+                ApplicationUser me = db.Users.FirstOrDefault(x => x.Id == myId);
+                if (me.FriendAssociations.FirstOrDefault(x => x.FriendId == id) == null)
+                {
+                    FriendAssociation fa = personExist.FriendAssociations.FirstOrDefault(x => x.FriendId == myId);
+                    if (fa == null)
+                    {
+                        me.FriendAssociations.Add(new FriendAssociation
+                        {
+                            IsAFriend = false,
+                            Friend = personExist,
+                            FriendId = personExist.Id
+                        });
+                    }
+                    else
+                    {
+                        fa.IsAFriend = true;
+                        me.FriendAssociations.Add(new FriendAssociation
+                        {
+                            IsAFriend = true,
+                            Friend = personExist,
+                            FriendId = personExist.Id
+                        });
+                    }
+                    db.SaveChanges();
+                }
+            }
+        }
+
 
         public ApplicationSignInManager SignInManager
         {

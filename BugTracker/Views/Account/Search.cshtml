@@ -1,0 +1,39 @@
+﻿@using BugTracker.Models
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+@using (Html.BeginForm("Search", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control col-md-6" type="search" name="text" placeholder="Search people" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+}
+
+
+@if (Model != null)
+{
+    foreach (ApplicationUser user in Model)
+    {
+        <div class="form-group col-6">
+            <div class="row">
+                <div class="col">@user.Name @user.Surname<small class="text-muted col">@user.Age</small></div>
+                <a href="/Account/AddFriend/@user.Id"><button class="btn btn-success">Add friend</button></a>
+            </div>
+            <div class="row">
+                <small class="text-muted col">@user.Company @user.Country</small>
+            </div>
+            <hr />
+        </div>
+    }
+}
+else
+{
+    <p>Start search</p>
+}
+
+

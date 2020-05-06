@@ -106,3 +106,8 @@ C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.csprojAss
 C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.Initial.resources
 C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.csproj.GenerateResource.cache
 C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.Thirdmigration.resources
+C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.Friends.resources
+C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.Smthwrong.resources
+C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.Trytofixshowinglistoffriends.resources
+C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.HoooraaayIrealizedthepoint.resources
+C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.HoooraaayIrealizedthepoint2.resources

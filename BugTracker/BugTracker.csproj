@@ -179,6 +179,30 @@
     <Compile Include="Migrations\202005040913136_Third migration.designer.cs">
       <DependentUpon>202005040913136_Third migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005051018218_Friends.cs" />
+    <Compile Include="Migrations\202005051018218_Friends.designer.cs">
+      <DependentUpon>202005051018218_Friends.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005051456366_Smth wrong.cs" />
+    <Compile Include="Migrations\202005051456366_Smth wrong.designer.cs">
+      <DependentUpon>202005051456366_Smth wrong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005051930132_Try to fix showing list of friends.cs" />
+    <Compile Include="Migrations\202005051930132_Try to fix showing list of friends.designer.cs">
+      <DependentUpon>202005051930132_Try to fix showing list of friends.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005051951571_Hoooraaay! I realized the point!.cs" />
+    <Compile Include="Migrations\202005051951571_Hoooraaay! I realized the point!.designer.cs">
+      <DependentUpon>202005051951571_Hoooraaay! I realized the point!.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005052030189_Hoooraaay! I realized the point! 2.cs" />
+    <Compile Include="Migrations\202005052030189_Hoooraaay! I realized the point! 2.designer.cs">
+      <DependentUpon>202005052030189_Hoooraaay! I realized the point! 2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005062039501_Add new friend.cs" />
+    <Compile Include="Migrations\202005062039501_Add new friend.designer.cs">
+      <DependentUpon>202005062039501_Add new friend.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -336,6 +360,7 @@
     <Content Include="Views\Bug\Edit.cshtml" />
     <Content Include="Views\Bug\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -355,6 +380,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005040913136_Third migration.resx">
       <DependentUpon>202005040913136_Third migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005051018218_Friends.resx">
+      <DependentUpon>202005051018218_Friends.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005051456366_Smth wrong.resx">
+      <DependentUpon>202005051456366_Smth wrong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005051930132_Try to fix showing list of friends.resx">
+      <DependentUpon>202005051930132_Try to fix showing list of friends.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005051951571_Hoooraaay! I realized the point!.resx">
+      <DependentUpon>202005051951571_Hoooraaay! I realized the point!.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005052030189_Hoooraaay! I realized the point! 2.resx">
+      <DependentUpon>202005052030189_Hoooraaay! I realized the point! 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005062039501_Add new friend.resx">
+      <DependentUpon>202005062039501_Add new friend.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

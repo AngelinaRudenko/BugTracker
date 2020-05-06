@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BugTracker.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
         //Доп.поля
@@ -20,9 +19,15 @@ namespace BugTracker.Models
         public string Age { get; set; }
         public string Country { get; set; }
         public string Company { get; set; }
-
         //Db
-        public ICollection<Bug> Bugs { get; set; }
+        public virtual ICollection<Bug> Bugs { get; set; }
+        public virtual ICollection<FriendAssociation> FriendAssociations { get; set; }
+
+        //public ApplicationUser()
+        //{
+        //    Bugs = new List<Bug>();
+        //    FriendAssociations = new List<FriendAssociation>();
+        //}
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -49,9 +54,21 @@ namespace BugTracker.Models
         public ApplicationUser ApplicationUser { get; set; }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class FriendAssociation
+    {
+        public int Id { get; set; }
+        public bool IsAFriend { get; set; }
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
+        public string FriendId { get; set; }
+        public ApplicationUser Friend { get; set; }
+    
+}
+
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Bug> Bugs { get; set; }
+        public DbSet<FriendAssociation> FriendAssociations { get; set; }
 
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
         {  
