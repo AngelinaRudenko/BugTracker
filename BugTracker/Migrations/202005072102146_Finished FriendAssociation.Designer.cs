@@ -7,13 +7,13 @@ namespace BugTracker.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class Addnewfriend : IMigrationMetadata
+    public sealed partial class FinishedFriendAssociation : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Addnewfriend));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FinishedFriendAssociation));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005062039501_Add new friend"; }
+            get { return "202005072102146_Finished FriendAssociation"; }
         }
         
         string IMigrationMetadata.Source

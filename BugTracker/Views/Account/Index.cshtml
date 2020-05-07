@@ -19,16 +19,31 @@
         <dd>@Html.DisplayFor(model => model.Company)</dd>
     </dl>
     Friends
-    @foreach (FriendAssociation association in Model.FriendAssociations)
+    @if (Model.FriendAssociations.Where(x => x.IsAFriend == true).ToList().Count != 0)
     {
-        if (association.IsAFriend == true)
+        foreach (FriendAssociation association in Model.FriendAssociations)
         {
-            <div class="form-group col-6">
-                <div class="row">
-                    <div class="col">@association.FriendId</div>
+            if (association.IsAFriend == true)
+            {
+                <div class="form-group col-6">
+                    <div class="row">
+                        <div class="col">@association.FriendId</div>
+                        <button class="col btn btn-success">Remove</button>
+                    </div>
+                    <hr />
                 </div>
-                <hr />
-            </div>
+            }
+        }
+    }
+    else
+    {
+        if (User.Identity.Name == Model.UserName)
+        {
+            <p>You have no friends yet</p>
+        }
+        else
+        {
+            <p>@Model.Name @Model.Surname has no friends yet</p>
         }
     }
 </div>

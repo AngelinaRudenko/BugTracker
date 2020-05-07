@@ -25,7 +25,7 @@
             @if (Request.IsAuthenticated)
             {          
                 <a class="nav-link">@Html.ActionLink("Search", "Search", "Account", routeValues: null, htmlAttributes: new { title = "Search" })<span class="sr-only">(current)</span></a>
-                <a class="nav-link">@Html.ActionLink("Me", "Index", "Account", routeValues: null, htmlAttributes: new { title = "Me" })<span class="sr-only">(current)</span></a>
+                <a class="nav-link">@Html.ActionLink("Me", "Index", "Account", new { id = User.Identity.GetUserId() }, htmlAttributes: new { title = "Me"})<span class="sr-only">(current)</span></a>
                 <a class="nav-link">@Html.ActionLink("Manage", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<span class="sr-only">(current)</span></a>
                 using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                 {

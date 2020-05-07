@@ -30,9 +30,8 @@ namespace BugTracker.Controllers
             SignInManager = signInManager;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            var id = User.Identity.GetUserId();
             var user = db.Users.FirstOrDefault(x => x.Id == id);
             return View(user);
         }
@@ -66,7 +65,7 @@ namespace BugTracker.Controllers
         [HttpGet]
         public void AddFriend(string id)
         {
-            ApplicationUser personExist = db.Users.FirstOrDefault(x => x.Id ==id);
+            ApplicationUser personExist = db.Users.FirstOrDefault(x => x.Id == id);
             if (personExist != null)
             {
                 string myId = User.Identity.GetUserId();
@@ -76,22 +75,24 @@ namespace BugTracker.Controllers
                     FriendAssociation fa = personExist.FriendAssociations.FirstOrDefault(x => x.FriendId == myId);
                     if (fa == null)
                     {
-                        me.FriendAssociations.Add(new FriendAssociation
-                        {
-                            IsAFriend = false,
-                            Friend = personExist,
-                            FriendId = personExist.Id
-                        });
+                        me.FriendAssociations.Add(
+                            new FriendAssociation
+                            {
+                                IsAFriend = false,
+                                //Friend = personExist,
+                                FriendId = id
+                            });
                     }
                     else
                     {
                         fa.IsAFriend = true;
-                        me.FriendAssociations.Add(new FriendAssociation
-                        {
-                            IsAFriend = true,
-                            Friend = personExist,
-                            FriendId = personExist.Id
-                        });
+                        me.FriendAssociations.Add(
+                            new FriendAssociation
+                            {
+                                IsAFriend = true,
+                                //Friend = personExist,
+                                FriendId = id
+                            });
                     }
                     db.SaveChanges();
                 }
@@ -192,7 +193,7 @@ namespace BugTracker.Controllers
                     {
                         Response.Write("Object: " + validationError.Entry.Entity.ToString());
                         Response.Write(" ");
-                        foreach (DbValidationError err in validationError.ValidationErrors)                      
+                        foreach (DbValidationError err in validationError.ValidationErrors)
                             Response.Write(err.ErrorMessage + " ");
                     }
                 }

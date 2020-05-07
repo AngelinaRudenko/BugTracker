@@ -199,9 +199,9 @@
     <Compile Include="Migrations\202005052030189_Hoooraaay! I realized the point! 2.designer.cs">
       <DependentUpon>202005052030189_Hoooraaay! I realized the point! 2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202005062039501_Add new friend.cs" />
-    <Compile Include="Migrations\202005062039501_Add new friend.designer.cs">
-      <DependentUpon>202005062039501_Add new friend.cs</DependentUpon>
+    <Compile Include="Migrations\202005072102146_Finished FriendAssociation.cs" />
+    <Compile Include="Migrations\202005072102146_Finished FriendAssociation.designer.cs">
+      <DependentUpon>202005072102146_Finished FriendAssociation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -396,8 +396,8 @@
     <EmbeddedResource Include="Migrations\202005052030189_Hoooraaay! I realized the point! 2.resx">
       <DependentUpon>202005052030189_Hoooraaay! I realized the point! 2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005062039501_Add new friend.resx">
-      <DependentUpon>202005062039501_Add new friend.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005072102146_Finished FriendAssociation.resx">
+      <DependentUpon>202005072102146_Finished FriendAssociation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

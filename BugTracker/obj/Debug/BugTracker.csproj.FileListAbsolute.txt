@@ -111,3 +111,4 @@ C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migration
 C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.Trytofixshowinglistoffriends.resources
 C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.HoooraaayIrealizedthepoint.resources
 C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.HoooraaayIrealizedthepoint2.resources
+C:\Users\Angelina\Documents\BugTracker\BugTracker\obj\Debug\BugTracker.Migrations.FinishedFriendAssociation.resources

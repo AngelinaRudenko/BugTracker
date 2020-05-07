@@ -23,12 +23,6 @@ namespace BugTracker.Models
         public virtual ICollection<Bug> Bugs { get; set; }
         public virtual ICollection<FriendAssociation> FriendAssociations { get; set; }
 
-        //public ApplicationUser()
-        //{
-        //    Bugs = new List<Bug>();
-        //    FriendAssociations = new List<FriendAssociation>();
-        //}
-
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -58,20 +52,21 @@ namespace BugTracker.Models
     {
         public int Id { get; set; }
         public bool IsAFriend { get; set; }
-        public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
-        public string FriendId { get; set; }
-        public ApplicationUser Friend { get; set; }
-    
-}
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+        public string ApplicationUserId { get; set; } //To assign User
+        public ApplicationUser ApplicationUser { get; set; }
+
+        public string FriendId { get; set; }//To assign friend
+        //public ApplicationUser Friend { get; set; }
+    }
+
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Bug> Bugs { get; set; }
         public DbSet<FriendAssociation> FriendAssociations { get; set; }
 
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
-        {  
+        {
         }
 
         public static ApplicationDbContext Create()
