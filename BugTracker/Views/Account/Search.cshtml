@@ -1,4 +1,5 @@
-﻿@using BugTracker.Models
+﻿@using Microsoft.AspNet.Identity
+@using BugTracker.Models
 @{
     ViewBag.Title = "Search";
 }
@@ -25,7 +26,11 @@
                     @Html.ActionLink(user.Name + " " + user.Surname, "Index", "Account", routeValues: new { id = user.Id }, htmlAttributes: null)
                     <small class="text-muted col">@user.Age</small>
                 </div>
+                @*@using (Html.BeginForm("AddFriend", "Account", FormMethod.Get, new { id = @user.Id }))
+                {
+                    @Html.AntiForgeryToken()*@
                 <a href="/Account/AddFriend/@user.Id"><button class="btn btn-success">Add friend</button></a>
+                @*}*@
             </div>
             <div class="row">
                 <small class="text-muted col">@user.Company @user.Country</small>

@@ -18,21 +18,32 @@
         <dt>@Html.DisplayNameFor(model => model.Company)</dt>
         <dd>@Html.DisplayFor(model => model.Company)</dd>
     </dl>
-    Friends
-    @if (Model.FriendAssociations.Where(x => x.IsAFriend == true).ToList().Count != 0)
+
+    <p><b>Friends</b></p>
+    @if (ViewBag.Friends.Count != 0)
     {
-        foreach (FriendAssociation association in Model.FriendAssociations)
+        foreach (ApplicationUser friend in ViewBag.Friends)
         {
-            if (association.IsAFriend == true)
-            {
-                <div class="form-group col-6">
-                    <div class="row">
-                        <div class="col">@association.FriendId</div>
-                        <button class="col btn btn-success">Remove</button>
+            <div class="form-group col-6">
+                <div class="row">
+                    <div class="col">
+                        @Html.ActionLink(friend.Name + " " + friend.Surname, "Index", "Account", routeValues: new { id = friend.Id }, htmlAttributes: null)
+                        <small class="text-muted col">@friend.Age</small>
                     </div>
-                    <hr />
+                    @if (User.Identity.Name == Model.UserName)
+                    {
+                        @*using (Html.BeginForm("Unfriend", "Account", FormMethod.Get, new { id = friend.Id }))
+                        {
+                            @Html.AntiForgeryToken()*@
+                    <a href="/Account/Unfriend/@friend.Id/"><button class="btn btn-success">Unfriend</button></a>
+                        //}
+                    }
                 </div>
-            }
+                <div class="row">
+                    <small class="text-muted col">@friend.Company @friend.Country</small>
+                </div>
+                <hr />
+            </div>
         }
     }
     else
@@ -46,4 +57,37 @@
             <p>@Model.Name @Model.Surname has no friends yet</p>
         }
     }
+</div>
+
+@if (User.Identity.Name == Model.UserName)
+{
+    <p><b>Outgoing requests</b></p>
+    if (ViewBag.Requests.Count != 0)
+    {
+        foreach (ApplicationUser notFriendYet in ViewBag.Requests)
+        {
+            <div class="form-group col-6">
+                <div class="row">
+                    <div class="col">
+                        @Html.ActionLink(notFriendYet.Name + " " + notFriendYet.Surname, "Index", "Account", routeValues: new { id = notFriendYet.Id }, htmlAttributes: null)
+                        <small class="text-muted col">@notFriendYet.Age</small>
+                    </div>
+                    @*@using (Html.BeginForm("Unfriend", "Account", routeValues: new { id = notFriendYet.Id }))
+                    {
+                        @Html.AntiForgeryToken()*@
+                    <a href="/Account/Unfriend/@notFriendYet.Id/"><button class="btn btn-success">Cancel request</button></a>
+                    @*}*@
+                </div>
+                <div class="row">
+                    <small class="text-muted col">@notFriendYet.Company @notFriendYet.Country</small>
+                </div>
+                <hr />
+            </div>
+        }
+    }
+    else
+    {
+        <p>You have no outgoing requests</p>
+    }
+}
 </div>

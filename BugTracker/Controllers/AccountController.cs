@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BugTracker.Models;
 using System.Data.Entity.Validation;
+using System.Collections.Generic;
 
 namespace BugTracker.Controllers
 {
@@ -33,6 +34,20 @@ namespace BugTracker.Controllers
         public ActionResult Index(string id)
         {
             var user = db.Users.FirstOrDefault(x => x.Id == id);
+            List<ApplicationUser> friends = new List<ApplicationUser>();
+            List<ApplicationUser> requests = new List<ApplicationUser>();
+            if (user.FriendAssociations.Count != 0)
+            {
+                foreach (FriendAssociation fa in user.FriendAssociations)
+                {
+                    if (fa.IsAFriend)
+                        friends.Add(db.Users.FirstOrDefault(x => x.Id == fa.FriendId));
+                    else
+                        requests.Add(db.Users.FirstOrDefault(x => x.Id == fa.FriendId));
+                }
+            }
+            ViewBag.Friends = friends;
+            ViewBag.Requests = requests;
             return View(user);
         }
 
@@ -47,7 +62,6 @@ namespace BugTracker.Controllers
         {
             if (!String.IsNullOrEmpty(text))
             {
-                //var users = db.Users.Where(x => $"{x.Name} {x.Surname}".Contains(text));
                 var users = db.Users.ToList();
                 foreach (ApplicationUser user in users.ToArray())
                 {
@@ -61,7 +75,6 @@ namespace BugTracker.Controllers
             return HttpNotFound();
         }
 
-        //Think about it
         [HttpGet]
         public void AddFriend(string id)
         {
@@ -96,6 +109,24 @@ namespace BugTracker.Controllers
                     }
                     db.SaveChanges();
                 }
+            }
+        }
+
+        [HttpGet]
+        public void Unfriend(string id)
+        {
+            if (!String.IsNullOrEmpty(id))
+            {
+                string myId = User.Identity.GetUserId();
+                //ApplicationUser me = db.Users.FirstOrDefault(x => x.Id == myId);
+                FriendAssociation fa = db.FriendAssociations.FirstOrDefault(x => x.FriendId == id);
+                //me.FriendAssociations.Remove(fa);
+                db.FriendAssociations.Remove(fa);
+                ApplicationUser user = db.Users.FirstOrDefault(x => x.Id == id);
+                FriendAssociation fa2 = user.FriendAssociations.FirstOrDefault(x => x.FriendId == myId);
+                if (fa2 != null)
+                    fa2.IsAFriend = false;
+                db.SaveChanges();
             }
         }
 
