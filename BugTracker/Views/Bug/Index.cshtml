@@ -24,7 +24,7 @@
                 <th scope="col">Action</th>
             </tr>
         </thead>
-        <tbody>
+        @*<tbody>
             @foreach (Bug bug in Model)
             {
                 <tr>
@@ -35,12 +35,12 @@
                     <td>@bug.Description</td>
                     @*<td>@bug.ActualResult</td>
                     <td>@bug.ExpectedResult</td>
-                    <td>@bug.Attachment</td>*@
+                    <td>@bug.Attachment</td>
                     <td>Show more/
                     <a href="/Bug/Edit/@bug.Id">Edit</a>/
                     <a href="/Bug/Delete/@bug.Id">Delete</a></td>
                 </tr>
             }
-        </tbody>
+        </tbody>*@
     </table>
 </div>

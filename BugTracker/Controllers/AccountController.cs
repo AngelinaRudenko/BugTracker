@@ -76,7 +76,7 @@ namespace BugTracker.Controllers
         }
 
         [HttpGet]
-        public void AddFriend(string id)
+        public EmptyResult AddFriend(string id)
         {
             ApplicationUser personExist = db.Users.FirstOrDefault(x => x.Id == id);
             if (personExist != null)
@@ -110,6 +110,7 @@ namespace BugTracker.Controllers
                     db.SaveChanges();
                 }
             }
+            return new EmptyResult();
         }
 
         [HttpGet]

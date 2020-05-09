@@ -7,13 +7,13 @@ namespace BugTracker.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class HoooraaayIrealizedthepoint : IMigrationMetadata
+    public sealed partial class ChatFirstmigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(HoooraaayIrealizedthepoint));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChatFirstmigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005051951571_Hoooraaay! I realized the point!"; }
+            get { return "202005081112095_Chat. First migration"; }
         }
         
         string IMigrationMetadata.Source

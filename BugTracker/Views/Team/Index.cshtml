@@ -1,0 +1,30 @@
+﻿@using BugTracker.Models
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Teams</h2>
+
+<div class="card-deck">
+    @foreach (Team team in Model)
+    {
+        <div>
+            <div class="card" style="width: 12rem;">
+                <div class="card-body bg-warning">
+                    <h5 class="card-title">@team.Name</h5>
+                    <p class="card-text">Team size: @team.Users.Count()</p>
+                    <a href="/Team/Edit/@team.Id/" class="btn btn-dark">Edit</a>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        <div class="card" style="width: 12rem;">
+            <div class="card-body bg-dark text-warning">
+                <h5 class="card-title">Create new team</h5>
+                <a href="/Team/CreateTeam/" class="btn btn-warning">Create</a>
+            </div>
+        </div>
+    </div>
+</div>

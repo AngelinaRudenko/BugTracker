@@ -16,10 +16,11 @@ namespace BugTracker.Controllers
         public ActionResult Index()
         {
             //Ленивая подгрузка - загрузка по требованию
-            var id = User.Identity.GetUserId();
-            //var bugs = db.Bugs.Where(x => x.ApplicationUser.Id == id).ToList();
-            var bugs = db.Bugs.Where(x => x.ApplicationUserId == id).ToList();
-            return View(bugs);
+            //var id = User.Identity.GetUserId();
+            ////var bugs = db.Bugs.Where(x => x.ApplicationUser.Id == id).ToList();
+            //var bugs = db.Bugs.Where(x => x.ApplicationUserId == id).ToList();
+            //return View(bugs);
+            return View();
         }
 
         [HttpGet]
@@ -32,7 +33,7 @@ namespace BugTracker.Controllers
         [HttpPost]
         public ActionResult Add(Bug bug)
         {
-            bug.ApplicationUserId = User.Identity.GetUserId();
+            //bug.ApplicationUserId = User.Identity.GetUserId();
             bug.Id = db.Bugs.Count() + 1;
             bug.Date = DateTime.Now;
             db.Bugs.Add(bug);
@@ -65,7 +66,7 @@ namespace BugTracker.Controllers
                 oldBug.Description = bug.Description;
                 oldBug.ActualResult = bug.ActualResult;
                 oldBug.ExpectedResult = bug.ExpectedResult;
-                oldBug.ApplicationUserId = bug.ApplicationUserId;
+                //oldBug.ApplicationUserId = bug.ApplicationUserId;
                 db.Entry(oldBug).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }

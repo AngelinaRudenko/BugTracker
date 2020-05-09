@@ -11,7 +11,6 @@ namespace BugTracker.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        //Доп.поля
         [Required]
         public string Name { get; set; }
         [Required]
@@ -19,16 +18,15 @@ namespace BugTracker.Models
         public string Age { get; set; }
         public string Country { get; set; }
         public string Company { get; set; }
-        //Db
-        public virtual ICollection<Bug> Bugs { get; set; }
         public virtual ICollection<FriendAssociation> FriendAssociations { get; set; }
+        public virtual ICollection<Team> Teams { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
-            return userIdentity;
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);           
+            return userIdentity;// Add custom user claims here
         }
     }
 
@@ -43,27 +41,48 @@ namespace BugTracker.Models
         public string ActualResult { get; set; }
         public string ExpectedResult { get; set; }
         //Attachment
-
-        public string ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public int ProjectId { get; set; }
+        public  Project Project { get; set; }
     }
 
     public class FriendAssociation
     {
         public int Id { get; set; }
         public bool IsAFriend { get; set; }
-
         public string ApplicationUserId { get; set; } //To assign User
         public ApplicationUser ApplicationUser { get; set; }
+        public string FriendId { get; set; } //To assign friend
+    }
 
-        public string FriendId { get; set; }//To assign friend
-        //public ApplicationUser Friend { get; set; }
+    public class Team
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<ApplicationUser> Users { get; set; }
+
+        public Team()
+        {
+            Projects = new List<Project>();
+            Users = new List<ApplicationUser>();
+        }
+    }
+
+    public class Project
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int TeamId { get; set; }
+        public Team Team { get; set; }
+        public virtual ICollection<Bug> Bugs { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Bug> Bugs { get; set; }
         public DbSet<FriendAssociation> FriendAssociations { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Team> Teams { get; set; }
 
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
         {

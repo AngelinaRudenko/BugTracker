@@ -1,0 +1,103 @@
+﻿@model BugTracker.Models.Team
+@using BugTracker.Models
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@ViewBag.Label</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                <h5 class="col">Add member to team</h5>
+                <hr />
+                @if (ViewBag.Friends != null && ViewBag.Friends.Count != 0)
+                {
+                    foreach (ApplicationUser friend in ViewBag.Friends)
+                    {
+                        <div class="form-group col">
+                            <div class="row">
+                                <div class="col">
+                                    @Html.ActionLink(friend.Name + " " + friend.Surname, "Index", "Account", routeValues: new { id = friend.Id }, htmlAttributes: null)
+                                    <small class="text-muted col">@friend.Age</small>
+                                </div>
+
+                                <button class="btn btn-success" name="addMember" type="submit" value="@friend.Id">Add</button>
+
+                            </div>
+                            <div class="row">
+                                <small class="text-muted col">@friend.Company @friend.Country</small>
+                            </div>
+                            <hr />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Team members must be your friends</p>
+                }
+            </div>
+
+            <div class="col">
+                <h5 class="col">Remove member from team</h5>
+                <hr />
+                @if (ViewBag.Members != null)
+                {
+                    foreach (ApplicationUser member in ViewBag.Members)
+                    {
+                        <div class="form-group col">
+                            <div class="row">
+                                <div class="col">
+                                    @Html.ActionLink(member.Name + " " + member.Surname, "Index", "Account", routeValues: new { id = member.Id }, htmlAttributes: null)
+                                    <small class="text-muted col">@member.Age</small>
+                                </div>
+
+
+                                <button class="btn btn-danger" name="removeMember" value="@member.Id">Remove</button>
+
+
+                            </div>
+                            <div class="row">
+                                <small class="text-muted col">@member.Company @member.Country</small>
+                            </div>
+                            <hr />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>There are no members in team yet</p>
+                }
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
