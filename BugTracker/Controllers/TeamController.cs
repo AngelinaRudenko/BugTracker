@@ -11,7 +11,6 @@ namespace BugTracker.Controllers
     public class TeamController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-        List<ApplicationUser> members = new List<ApplicationUser>();
 
         public ActionResult Index()
         {
@@ -21,7 +20,7 @@ namespace BugTracker.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateTeam()
+        public ActionResult Create()
         {
             ViewBag.Label = "Create new team";
             string myId = User.Identity.GetUserId();
@@ -40,20 +39,26 @@ namespace BugTracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateTeam(Team team)
+        public ActionResult Create(Team team, string addMember/*, string removeMember*/)
         {
-            team.Id = db.Teams.Count() + 1;
             string myId = User.Identity.GetUserId();
-            ApplicationUser me = db.Users.FirstOrDefault(u => u.Id == myId);
-            team.Users.Add(me);
+            team.Users.Add(db.Users.FirstOrDefault(u => u.Id == myId));
+            if (!String.IsNullOrEmpty(addMember))
+            {
+                team.Users.Add(db.Users.FirstOrDefault(x => x.Id == addMember));
+                db.Teams.Add(team);
+                db.SaveChanges();
+                return RedirectToAction("Edit", new { id = team.Id });
+            }
+            //else if (!String.IsNullOrEmpty(removeMember))
+            //{
+            //    team.Users.Remove(db.Users.FirstOrDefault(x => x.Id == removeMember));
+            //    db.Teams.Add(team);
+            //    db.SaveChanges();
+            //    return RedirectToAction("Edit", team.Id);
+            //}
             db.Teams.Add(team);
             db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult CreateTeam(Team team, string id)
-        {
-           
             return RedirectToAction("Index");
         }
 
@@ -61,7 +66,7 @@ namespace BugTracker.Controllers
         public ActionResult Edit(int id)
         {
             ViewBag.Label = "Edit team";
-            Team team =db.Teams.FirstOrDefault(x => x.Id == id);
+            Team team = db.Teams.FirstOrDefault(x => x.Id == id);
             string myId = User.Identity.GetUserId();
             ApplicationUser me = db.Users.FirstOrDefault(u => u.Id == myId);
             List<ApplicationUser> friends = new List<ApplicationUser>();
@@ -91,36 +96,26 @@ namespace BugTracker.Controllers
         [HttpPost]
         public ActionResult Edit(Team team, string addMember, string removeMember)
         {
-            if (!String.IsNullOrEmpty(addMember))
+            Team oldTeam = db.Teams.FirstOrDefault(x => x.Id == team.Id);
+            if (oldTeam != null)
             {
-                Team oldTeam = db.Teams.FirstOrDefault(x => x.Id == team.Id);
-                if (oldTeam != null)
+                if (!String.IsNullOrEmpty(addMember))
                 {
                     oldTeam.Name = team.Name;
                     oldTeam.Projects = team.Projects;
-                    oldTeam.Users.Add(db.Users.FirstOrDefault(x => x.Id == addMember)); ;
+                    oldTeam.Users.Add(db.Users.FirstOrDefault(x => x.Id == addMember));
                     db.SaveChanges();
-                    
+                    return RedirectToAction("Edit");
                 }
-                return RedirectToAction("Edit");
-            }
-            else if (!String.IsNullOrEmpty(removeMember))
-            {
-                Team oldTeam = db.Teams.FirstOrDefault(x => x.Id == team.Id);
-                if (oldTeam != null)
+                else if (!String.IsNullOrEmpty(removeMember))
                 {
                     oldTeam.Name = team.Name;
                     oldTeam.Projects = team.Projects;
                     oldTeam.Users.Remove(db.Users.FirstOrDefault(x => x.Id == removeMember));
                     db.SaveChanges();
-
+                    return RedirectToAction("Edit");
                 }
-                return RedirectToAction("Edit");
-            }
-            else
-            {
-                Team oldTeam = db.Teams.FirstOrDefault(x => x.Id == team.Id);
-                if (oldTeam != null)
+                else
                 {
                     oldTeam.Name = team.Name;
                     oldTeam.Projects = team.Projects;
@@ -128,6 +123,19 @@ namespace BugTracker.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+            }
+            return HttpNotFound();
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            Team team = db.Teams.FirstOrDefault(x => x.Id == id);
+            if (team != null)
+            {
+                db.Teams.Remove(team);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
             return HttpNotFound();
         }

@@ -10,7 +10,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>@ViewBag.Label</h4>
+        <h4>@ViewBag.Label @Html.LabelFor(model=>model.Name)</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -38,9 +38,7 @@
                                     @Html.ActionLink(friend.Name + " " + friend.Surname, "Index", "Account", routeValues: new { id = friend.Id }, htmlAttributes: null)
                                     <small class="text-muted col">@friend.Age</small>
                                 </div>
-
                                 <button class="btn btn-success" name="addMember" type="submit" value="@friend.Id">Add</button>
-
                             </div>
                             <div class="row">
                                 <small class="text-muted col">@friend.Company @friend.Country</small>
