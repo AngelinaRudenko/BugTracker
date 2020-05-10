@@ -1,0 +1,51 @@
+﻿@model BugTracker.Models.Project
+@using BugTracker.Models
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <h4>@ViewBag.Label</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    <div class="d-flex justify-content-center">
+        <div class="row col-md-8">
+
+            <div class="form-group col-md-8">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @if (ViewBag.Teams.Count != 0)
+            {
+
+                @Html.DropDownListFor(model => model.TeamId, new SelectList(ViewBag.Teams, "Id", "Name"))
+            }
+            else
+            {
+                <p>First you should create or be a member of any team</p>
+            }
+
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

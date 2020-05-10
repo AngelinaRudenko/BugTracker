@@ -1,0 +1,50 @@
+﻿@using BugTracker.Models
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Projects</h2>
+
+<div class="card-deck">
+    @foreach (Project project in Model)
+    {
+        <div>
+            <div class="card" style="width: 12rem;">
+                <div class="card-body bg-warning">
+                    <h5 class="card-title">
+                        @project.Name
+
+                        <a href="/Project/Delete/@project.Id/">
+                            <svg class="bi bi-x float-right" width="1.3em" height="1.3em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd" />
+                                <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </h5>
+                    <p class="card-text">
+                        @if (project.Team != null)
+                        {
+                            <span>Team: @project.Team.Name</span>
+                        }
+                        else
+                        {
+                            <span>Team: not selected</span>
+                        }
+                        <br />
+                        Total bugs: @project.Bugs.Count
+                    </p>
+                    <a href="/Project/Edit/@project.Id/" class="btn btn-dark">Edit</a>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        <div class="card" style="width: 12rem;">
+            <div class="card-body bg-dark text-warning">
+                <h5 class="card-title">Create new project</h5>
+                <a href="/Project/Create/" class="btn btn-warning">Create</a>
+            </div>
+        </div>
+    </div>
+</div>
