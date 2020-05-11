@@ -25,7 +25,6 @@
 
             @if (ViewBag.Teams.Count != 0)
             {
-
                 @Html.DropDownListFor(model => model.TeamId, new SelectList(ViewBag.Teams, "Id", "Name"))
             }
             else

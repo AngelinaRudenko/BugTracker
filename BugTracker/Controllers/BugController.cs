@@ -12,49 +12,51 @@ namespace BugTracker.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Bug
-        public ActionResult Index()
+
+
+
+        public ActionResult Index(int id)
         {
-            //Ленивая подгрузка - загрузка по требованию
-            //var id = User.Identity.GetUserId();
-            ////var bugs = db.Bugs.Where(x => x.ApplicationUser.Id == id).ToList();
-            //var bugs = db.Bugs.Where(x => x.ApplicationUserId == id).ToList();
-            //return View(bugs);
-            return View();
+            List<Bug> bugs = db.Bugs.Where(x => x.ProjectId == id).ToList();
+            ViewBag.Project = db.Projects.FirstOrDefault(x => x.Id == id);
+            return View(bugs);
         }
 
         [HttpGet]
-        public ActionResult Add()
+        public ActionResult Add(int projectId, string projectName)
         {
+            ViewBag.ProjectName = projectName;
+            ViewBag.ProjectId = projectId;
             ViewBag.Label = "Add new bug";
             return View("Edit");
         }
 
         [HttpPost]
-        public ActionResult Add(Bug bug)
+        public ActionResult Add(Bug bug, int projectId)
         {
-            //bug.ApplicationUserId = User.Identity.GetUserId();
-            bug.Id = db.Bugs.Count() + 1;
+            bug.ProjectId = projectId;
             bug.Date = DateTime.Now;
             db.Bugs.Add(bug);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = projectId });
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, int projectId, string projectName)
         {
             Bug bug = db.Bugs.FirstOrDefault(x => x.Id == id);
             if (bug != null)
             {
                 ViewBag.Label = "Edit bug";
+                ViewBag.ProjectName = projectName;
+                ViewBag.ProjectId = projectId;
                 return View(bug);
             }
             return HttpNotFound();
         }
 
         [HttpPost]
-        public ActionResult Edit(Bug bug)
+        public ActionResult Edit(Bug bug, int projectId)
         {
             Bug oldBug = db.Bugs.FirstOrDefault(x => x.Id == bug.Id);
             if (oldBug != null)
@@ -70,18 +72,18 @@ namespace BugTracker.Controllers
                 db.Entry(oldBug).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { Id = projectId });
         }
 
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, int projectId)
         {
             Bug bug = db.Bugs.FirstOrDefault(x => x.Id == id);
             if (bug != null)
             {
                 db.Bugs.Remove(bug);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = projectId });
             }
             return HttpNotFound();
         }

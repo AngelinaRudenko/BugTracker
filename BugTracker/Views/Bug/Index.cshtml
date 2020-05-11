@@ -1,46 +1,71 @@
-﻿@using BugTracker.Models
+﻿@model IEnumerable<BugTracker.Models.Bug>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<div class="instruments_panel">
-    <a href="/Bug/Add"><button type="button" class="btn btn-success" style="margin-right: 50px">Add</button></a>
-    <button type="button" class="btn btn-primary">Edit</button>
-    <button type="button" class="btn btn-danger">Delete</button>
-</div>
+<h2>@ViewBag.Project.Name <small>Totall bugs: @ViewBag.Project.Bugs.Count</small></h2>
 
-<div class="bags_list table-responsive-lg">
-    <table class="table table-bordered table-hover">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Headline</th>
-                <th scope="col">Severity</th>
-                <th scope="col">ErrorType</th>
-                <th scope="col">Description</th>
-                @*<th scope="col">ActualResult</th>
-        <th scope="col">ExpectedResult</th>
-        <th scope="col">Attachment</th>*@
-                <th scope="col">Action</th>
-            </tr>
+<p>
+    @Html.ActionLink("Create New", "Add", new { projectId = ViewBag.Project.Id, projectName = ViewBag.Project.Name })
+</p>
+<table class="table table table-bordered table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Headline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Severity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ErrorType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActualResult)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpectedResult)
+            </th>
+            <th></th>
+        </tr>
         </thead>
-        @*<tbody>
-            @foreach (Bug bug in Model)
-            {
-                <tr>
-                    <td scope="row">@bug.Date</td>
-                    <td>@bug.Headline</td>
-                    <td>@bug.Severity</td>
-                    <td>@bug.ErrorType</td>
-                    <td>@bug.Description</td>
-                    @*<td>@bug.ActualResult</td>
-                    <td>@bug.ExpectedResult</td>
-                    <td>@bug.Attachment</td>
-                    <td>Show more/
-                    <a href="/Bug/Edit/@bug.Id">Edit</a>/
-                    <a href="/Bug/Delete/@bug.Id">Delete</a></td>
-                </tr>
-            }
-        </tbody>*@
-    </table>
-</div>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Headline)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Severity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ErrorType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActualResult)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedResult)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id, projectId = ViewBag.Project.Id, projectName = ViewBag.Project.Name }) |
+                    @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id, projectId = ViewBag.Project.Id })
+                </td>
+            </tr>
+        }
+
+</table>
