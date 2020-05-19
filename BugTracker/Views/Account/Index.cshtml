@@ -32,11 +32,7 @@
                     </div>
                     @if (User.Identity.Name == Model.UserName)
                     {
-                        @*using (Html.BeginForm("Unfriend", "Account", FormMethod.Get, new { id = friend.Id }))
-                        {
-                            @Html.AntiForgeryToken()*@
-                    <a href="/Account/Unfriend/@friend.Id/"><button class="btn btn-success">Unfriend</button></a>
-                        //}
+                        <a href="/Account/Unfriend/@friend.Id/"><button class="btn btn-success">Unfriend</button></a>
                     }
                 </div>
                 <div class="row">
@@ -71,12 +67,8 @@
                     <div class="col">
                         @Html.ActionLink(notFriendYet.Name + " " + notFriendYet.Surname, "Index", "Account", routeValues: new { id = notFriendYet.Id }, htmlAttributes: null)
                         <small class="text-muted col">@notFriendYet.Age</small>
-                    </div>
-                    @*@using (Html.BeginForm("Unfriend", "Account", routeValues: new { id = notFriendYet.Id }))
-                    {
-                        @Html.AntiForgeryToken()*@
+                    </div>                  
                     <a href="/Account/Unfriend/@notFriendYet.Id/"><button class="btn btn-success">Cancel request</button></a>
-                    @*}*@
                 </div>
                 <div class="row">
                     <small class="text-muted col">@notFriendYet.Company @notFriendYet.Country</small>

@@ -1,19 +1,15 @@
 ﻿using BugTracker.Models;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
+    [Authorize]
     public class BugController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-
-
-
 
         public ActionResult Index(int id)
         {
@@ -68,7 +64,6 @@ namespace BugTracker.Controllers
                 oldBug.Description = bug.Description;
                 oldBug.ActualResult = bug.ActualResult;
                 oldBug.ExpectedResult = bug.ExpectedResult;
-                //oldBug.ApplicationUserId = bug.ApplicationUserId;
                 db.Entry(oldBug).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }

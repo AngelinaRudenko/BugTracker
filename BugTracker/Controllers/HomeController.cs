@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
@@ -12,7 +8,7 @@ namespace BugTracker.Controllers
         {
             if (Request.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Bug");
+                return RedirectToAction("Index", "Project");
             }
             else
                 return View();

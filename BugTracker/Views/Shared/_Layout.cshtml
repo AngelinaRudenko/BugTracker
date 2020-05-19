@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -9,7 +11,6 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand font-weight-bold" href="~/Views/Home/Index.cshtml">BugTracker</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,10 +19,9 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="form-inline my-2 my-lg-0 navbar-nav mr-auto">
-                <a class="nav-link">@Html.ActionLink("Home", "Index", "Home")<span class="sr-only">(current)</span></a>
+                <a class="navbar-brand font-weight-bold" href="/Home/Index/">BugTracker</a>                
             </form>
-            @*@Html.Partial("_LoginPartial")*@
-            @using Microsoft.AspNet.Identity
+
             @if (Request.IsAuthenticated)
             {
                 <a class="nav-link">@Html.ActionLink("Projects", "Index", "Project", routeValues: null, htmlAttributes: new { title = "Projects" })<span class="sr-only">(current)</span></a>

@@ -1,16 +1,14 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+﻿using BugTracker.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using BugTracker.Models;
-using System.Data.Entity.Validation;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
@@ -62,21 +60,36 @@ namespace BugTracker.Controllers
         {
             if (!String.IsNullOrEmpty(text))
             {
-                var users = db.Users.ToList();
-                foreach (ApplicationUser user in users.ToArray())
+                string myId = User.Identity.GetUserId();
+                ApplicationUser me = db.Users.FirstOrDefault(x => x.Id == myId);
+                List<ApplicationUser> users = new List<ApplicationUser>();
+                List<ApplicationUser> friends = new List<ApplicationUser>();
+                List<ApplicationUser> requests = new List<ApplicationUser>();
+                foreach (ApplicationUser user in db.Users)
                 {
-                    if (!$"{user.Name} {user.Surname}".ToLower().Contains(text.ToLower()) || user.Id == User.Identity.GetUserId())
+                    if ($"{user.Name} {user.Surname}".ToLower().Contains(text.ToLower()) && user.Id != User.Identity.GetUserId())
                     {
-                        users.Remove(user);
+                        FriendAssociation fa = me.FriendAssociations.FirstOrDefault(x => x.FriendId == user.Id);
+                        if (fa != null)
+                        {
+                            if (fa.IsAFriend == true)
+                                friends.Add(user);
+                            else if (fa.IsAFriend == false)
+                                requests.Add(user);
+                        }
+                        else
+                            users.Add(user);
                     }
                 }
+                ViewBag.Friends = friends;
+                ViewBag.Requests = requests;
                 return View(users);
             }
             return HttpNotFound();
         }
 
         [HttpGet]
-        public EmptyResult AddFriend(string id)
+        public ActionResult AddFriend(string id)
         {
             ApplicationUser personExist = db.Users.FirstOrDefault(x => x.Id == id);
             if (personExist != null)
@@ -88,47 +101,37 @@ namespace BugTracker.Controllers
                     FriendAssociation fa = personExist.FriendAssociations.FirstOrDefault(x => x.FriendId == myId);
                     if (fa == null)
                     {
-                        me.FriendAssociations.Add(
-                            new FriendAssociation
-                            {
-                                IsAFriend = false,
-                                //Friend = personExist,
-                                FriendId = id
-                            });
+                        me.FriendAssociations.Add(new FriendAssociation { IsAFriend = false, FriendId = id });
                     }
                     else
                     {
                         fa.IsAFriend = true;
-                        me.FriendAssociations.Add(
-                            new FriendAssociation
-                            {
-                                IsAFriend = true,
-                                //Friend = personExist,
-                                FriendId = id
-                            });
+                        me.FriendAssociations.Add(new FriendAssociation { IsAFriend = true, FriendId = id });
                     }
                     db.SaveChanges();
                 }
             }
-            return new EmptyResult();
+            return RedirectToAction("Search");
         }
 
         [HttpGet]
-        public void Unfriend(string id)
+        public ActionResult Unfriend(string id)
         {
             if (!String.IsNullOrEmpty(id))
             {
                 string myId = User.Identity.GetUserId();
-                //ApplicationUser me = db.Users.FirstOrDefault(x => x.Id == myId);
                 FriendAssociation fa = db.FriendAssociations.FirstOrDefault(x => x.FriendId == id);
-                //me.FriendAssociations.Remove(fa);
                 db.FriendAssociations.Remove(fa);
                 ApplicationUser user = db.Users.FirstOrDefault(x => x.Id == id);
-                FriendAssociation fa2 = user.FriendAssociations.FirstOrDefault(x => x.FriendId == myId);
-                if (fa2 != null)
-                    fa2.IsAFriend = false;
+                if (user.FriendAssociations != null)
+                {
+                    FriendAssociation fa2 = user.FriendAssociations.FirstOrDefault(x => x.FriendId == myId);
+                    if (fa2 != null)
+                        fa2.IsAFriend = false;
+                }
                 db.SaveChanges();
             }
+            return RedirectToAction("Index", new { id = User.Identity.GetUserId()});
         }
 
 
@@ -156,7 +159,6 @@ namespace BugTracker.Controllers
             }
         }
 
-        // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -164,7 +166,6 @@ namespace BugTracker.Controllers
             return View();
         }
 
-        // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -193,14 +194,12 @@ namespace BugTracker.Controllers
             }
         }
 
-        // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
         }
 
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -236,7 +235,6 @@ namespace BugTracker.Controllers
             return View(model);
         }
 
-        // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()

@@ -342,6 +342,7 @@
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Project\Edit.cshtml" />
     <Content Include="Views\Bug\Index.cshtml" />
+    <Content Include="Views\Manage\ChangePersonalInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

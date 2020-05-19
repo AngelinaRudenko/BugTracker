@@ -1,13 +1,13 @@
 ﻿using BugTracker.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 
 namespace BugTracker.Controllers
 {
+    [Authorize]
     public class TeamController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
@@ -39,7 +39,7 @@ namespace BugTracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Team team, string addMember/*, string removeMember*/)
+        public ActionResult Create(Team team, string addMember)
         {
             string myId = User.Identity.GetUserId();
             team.Users.Add(db.Users.FirstOrDefault(u => u.Id == myId));
@@ -50,13 +50,6 @@ namespace BugTracker.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Edit", new { id = team.Id });
             }
-            //else if (!String.IsNullOrEmpty(removeMember))
-            //{
-            //    team.Users.Remove(db.Users.FirstOrDefault(x => x.Id == removeMember));
-            //    db.Teams.Add(team);
-            //    db.SaveChanges();
-            //    return RedirectToAction("Edit", team.Id);
-            //}
             db.Teams.Add(team);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -90,7 +83,7 @@ namespace BugTracker.Controllers
             }
             ViewBag.Friends = friends;
             ViewBag.Members = members;
-            return View();
+            return View(team);
         }
 
         [HttpPost]

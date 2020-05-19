@@ -15,6 +15,7 @@ namespace BugTracker.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -50,42 +51,28 @@ namespace BugTracker.Controllers
             }
         }
 
-        // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
         }
 
-        // GET: /Manage/AddPhoneNumber
-        public ActionResult AddPhoneNumber()
-        {
-            return View();
-        }
-
-        // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
             return View();
         }
 
-        // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
@@ -108,13 +95,11 @@ namespace BugTracker.Controllers
             return View(model);
         }
 
-        // GET: /Manage/SetPassword
         public ActionResult SetPassword()
         {
             return View();
         }
 
-        // POST: /Manage/SetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
@@ -134,8 +119,32 @@ namespace BugTracker.Controllers
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult ChangePersonalInfo()
+        {
+            ApplicationUser me = UserManager.FindById(User.Identity.GetUserId());
+            return View(me);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePersonalInfo(ApplicationUser user)
+        {
+            ApplicationUser me = db.Users.Find(User.Identity.GetUserId());
+            if (user != null)
+            {
+                me.Name = user.Name;
+                me.Surname = user.Surname;
+                me.Age = user.Age;
+                me.Country = user.Country;
+                me.Company = user.Company;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return HttpNotFound();
         }
 
         protected override void Dispose(bool disposing)

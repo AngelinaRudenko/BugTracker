@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
+    [Authorize]
     public class ProjectController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
@@ -66,7 +66,7 @@ namespace BugTracker.Controllers
                 }
             }
             ViewBag.Teams = teams;
-            return View();
+            return View(project);
         }
 
         [HttpPost]
