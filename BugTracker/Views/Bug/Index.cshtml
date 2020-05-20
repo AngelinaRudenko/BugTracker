@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>@ViewBag.Project.Name <small>Totall bugs: @ViewBag.Project.Bugs.Count</small></h2>
+<h2>@ViewBag.Project.Name <small>Total bugs: @ViewBag.Project.Bugs.Count</small></h2>
 
 <p>
     @Html.ActionLink("Create New", "Add", new { projectId = ViewBag.Project.Id, projectName = ViewBag.Project.Name })
