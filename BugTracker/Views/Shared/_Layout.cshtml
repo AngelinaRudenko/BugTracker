@@ -11,6 +11,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand font-weight-bold" href="/Home/Index/">BugTracker</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,44 +19,37 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="form-inline my-2 my-lg-0 navbar-nav mr-auto">
-                <a class="navbar-brand font-weight-bold" href="/Home/Index/">BugTracker</a>                
-            </form>
-
             @if (Request.IsAuthenticated)
             {
                 <a class="nav-link">@Html.ActionLink("Projects", "Index", "Project", routeValues: null, htmlAttributes: new { title = "Projects" })<span class="sr-only">(current)</span></a>
                 <a class="nav-link">@Html.ActionLink("Teams", "Index", "Team", routeValues: null, htmlAttributes: new { title = "Teams" })<span class="sr-only">(current)</span></a>
                 <a class="nav-link">@Html.ActionLink("Search", "Search", "Account", routeValues: null, htmlAttributes: new { title = "Search" })<span class="sr-only">(current)</span></a>
-                <a class="nav-link">@Html.ActionLink("Me", "Index", "Account", new { id = User.Identity.GetUserId() }, htmlAttributes: new { title = "Me" })<span class="sr-only">(current)</span></a>
-                <a class="nav-link">@Html.ActionLink("Manage", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<span class="sr-only">(current)</span></a>
-                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <form class="form-inline my-2 my-lg-0 navbar-right">
+                <div class="form-inline my-2 my-lg-0" style="margin-left: auto;  margin-right: 0;">
+                    <a class="nav-link">@Html.ActionLink("Me", "Index", "Account", new { id = User.Identity.GetUserId() }, htmlAttributes: new { title = "Me" })<span class="sr-only">(current)</span></a>
+                    <a class="nav-link">@Html.ActionLink("Manage", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })<span class="sr-only">(current)</span></a>
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
                         <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-                    </form>
-                }
+                    }
+                </div>
             }
             else
             {
-                <form class="form-inline my-2 my-lg-0 navbar-right">
+                <form class="form-inline my-2 my-lg-0" style="margin-left: auto;  margin-right: 0;">
                     <a class="nav-link">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })<span class="sr-only">(current)</span></a>
                     <a class="nav-link">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })<span class="sr-only">(current)</span></a>
                 </form>
             }
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container body-content" style="margin:5vh auto 5vh auto">
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - ASP.NET Application made by Angelina Rudenko</p>
         </footer>
     </div>
-
-    @*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>*@
-    @*<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>*@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
