@@ -1,17 +1,19 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using BugTracker.Resources.Views.Shared
+@using BugTracker.Resources.Views.Account
 @using BugTracker.Models
+
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = _Layout.Search;
 }
 
-<h2>Search</h2>
+<h2>@_Layout.Search</h2>
 
 @using (Html.BeginForm("Search", "Account", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <form class="form-inline my-2 my-lg-0">
-        <input class="form-control col-md-6" type="search" name="text" placeholder="Search people" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input class="form-control col-md-6" type="search" name="text" placeholder="..." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">@_Layout.Search</button>
     </form>
 }
 
@@ -26,7 +28,7 @@
                     @Html.ActionLink(friend.Name + " " + friend.Surname, "Index", "Account", routeValues: new { id = friend.Id }, htmlAttributes: null)
                     <small class="text-muted col">@friend.Age</small>
                 </div>
-                <a href="/Account/Unfriend/@friend.Id/"><button class="btn btn-danger">Unfriend</button></a>
+                <a href="/Account/Unfriend/@friend.Id/"><button class="btn btn-danger">@Index.Unfriend</button></a>
             </div>
             <div class="row">
                 <small class="text-muted col">@friend.Company @friend.Country</small>
@@ -46,7 +48,7 @@
                     @Html.ActionLink(request.Name + " " + request.Surname, "Index", "Account", routeValues: new { id = request.Id }, htmlAttributes: null)
                     <small class="text-muted col">@request.Age</small>
                 </div>
-                <a href="/Account/Unfriend/@request.Id/"><button class="btn btn-warning">Cancel request</button></a>
+                <a href="/Account/Unfriend/@request.Id/"><button class="btn btn-warning">@Index.CancelRequest</button></a>
             </div>
             <div class="row">
                 <small class="text-muted col">@request.Company @request.Country</small>
@@ -67,7 +69,7 @@
                     @Html.ActionLink(user.Name + " " + user.Surname, "Index", "Account", routeValues: new { id = user.Id }, htmlAttributes: null)
                     <small class="text-muted col">@user.Age</small>
                 </div>
-                <a href="/Account/AddFriend/@user.Id"><button class="btn btn-success">Add friend</button></a>
+                <a href="/Account/AddFriend/@user.Id"><button class="btn btn-success">@Index.AddFriend</button></a>
                 @*}*@
             </div>
             <div class="row">
@@ -79,7 +81,7 @@
 }
 else
 {
-    <p>Start search</p>
+    <p>@Index.StartSearch</p>
 }
 
 

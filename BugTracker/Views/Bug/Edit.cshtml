@@ -1,7 +1,8 @@
-﻿@model BugTracker.Models.Bug
+﻿@using BugTracker.Resources.Views.Bug
+@model BugTracker.Models.Bug
 
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = @ViewBag.Label;
 }
 
 @using (Html.BeginForm())
@@ -65,12 +66,12 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <button class="btn btn-success" type="submit" value="@ViewBag.ProjectId" name="projectId">Save</button>
+            <button class="btn btn-success" type="submit" value="@ViewBag.ProjectId" name="projectId">@Edit.Save</button>
         </div>
     </div>
 </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", new { id = ViewBag.ProjectId })
+    @Html.ActionLink(Edit.Back, "Index", new { id = ViewBag.ProjectId })
 </div>

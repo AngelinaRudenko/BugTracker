@@ -1,8 +1,9 @@
-﻿@model BugTracker.Models.Team
-@using BugTracker.Models
+﻿@using BugTracker.Models
+@using BugTracker.Resources.Views.Team
+@model BugTracker.Models.Team
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = @ViewBag.Label;
 }
 
 @using (Html.BeginForm())
@@ -26,7 +27,7 @@
 
         <div class="row">
             <div class="col">
-                <h5 class="col">Add member to team</h5>
+                <h5 class="col">@TeamRes.AddMember</h5>
                 <hr />
                 @if (ViewBag.Friends != null && ViewBag.Friends.Count != 0)
                 {
@@ -38,7 +39,7 @@
                                     @Html.ActionLink(friend.Name + " " + friend.Surname, "Index", "Account", routeValues: new { id = friend.Id }, htmlAttributes: null)
                                     <small class="text-muted col">@friend.Age</small>
                                 </div>
-                                <button class="btn btn-success" name="addMember" type="submit" value="@friend.Id">Add</button>
+                                <button class="btn btn-success" name="addMember" type="submit" value="@friend.Id">@TeamRes.Add</button>
                             </div>
                             <div class="row">
                                 <small class="text-muted col">@friend.Company @friend.Country</small>
@@ -49,12 +50,12 @@
                 }
                 else
                 {
-                    <p>Team members must be your friends</p>
+                    <p>@TeamRes.NoFriends</p>
                 }
             </div>
 
             <div class="col">
-                <h5 class="col">Remove member from team</h5>
+                <h5 class="col">@TeamRes.RemoveMember</h5>
                 <hr />
                 @if (ViewBag.Members != null)
                 {
@@ -67,9 +68,7 @@
                                     <small class="text-muted col">@member.Age</small>
                                 </div>
 
-
-                                <button class="btn btn-danger" name="removeMember" value="@member.Id">Remove</button>
-
+                                <button class="btn btn-danger" name="removeMember" value="@member.Id">@TeamRes.Remove</button>
 
                             </div>
                             <div class="row">
@@ -81,21 +80,19 @@
                 }
                 else
                 {
-                    <p>There are no members in team yet</p>
+                    <p>@TeamRes.NoMembersYet</p>
                 }
             </div>
         </div>
 
-
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
+                <input type="submit" value="@TeamRes.Save" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(TeamRes.BackToList, "Index")
 </div>

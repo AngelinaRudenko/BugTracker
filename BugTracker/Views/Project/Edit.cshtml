@@ -1,7 +1,8 @@
-﻿@model BugTracker.Models.Project
-@using BugTracker.Models
+﻿@using BugTracker.Resources.Views.Project
+@model BugTracker.Models.Project
+
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = ViewBag.Label;
 }
 
 
@@ -29,7 +30,7 @@
             }
             else
             {
-                <p>First you should create or be a member of any team</p>
+                <p>@ProjectRes.NoTeams</p>
             }
 
         </div>
@@ -38,7 +39,7 @@
     <div class="d-flex justify-content-center">
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
+                <input type="submit" value="@ProjectRes.Save" class="btn btn-success" />
             </div>
         </div>
     </div>
@@ -46,5 +47,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(ProjectRes.BackToList, "Index")
 </div>

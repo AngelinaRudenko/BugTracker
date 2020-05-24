@@ -6,17 +6,23 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using BugTracker;
 
 namespace BugTracker.Models
 {
     public class ApplicationUser : IdentityUser
     {
         [Required]
+        [LocalizedDisplayNameAttribute("Name", NameResourceType = typeof(Resources.Entities.ApplicationUser.Fields))]
         public string Name { get; set; }
         [Required]
+        [LocalizedDisplayNameAttribute("Surname", NameResourceType = typeof(Resources.Entities.ApplicationUser.Fields))]
         public string Surname { get; set; }
+        [LocalizedDisplayNameAttribute("Age", NameResourceType = typeof(Resources.Entities.ApplicationUser.Fields))]
         public string Age { get; set; }
+        [LocalizedDisplayNameAttribute("Country", NameResourceType = typeof(Resources.Entities.ApplicationUser.Fields))]
         public string Country { get; set; }
+        [LocalizedDisplayNameAttribute("Company", NameResourceType = typeof(Resources.Entities.ApplicationUser.Fields))]
         public string Company { get; set; }
         public virtual ICollection<FriendAssociation> FriendAssociations { get; set; }
         public virtual ICollection<Team> Teams { get; set; }
@@ -33,12 +39,19 @@ namespace BugTracker.Models
     public class Bug
     {
         public int Id { get; set; }
+        [LocalizedDisplayNameAttribute("Date", NameResourceType = typeof(Resources.Entities.Bug.Fields))]
         public DateTime Date { get; set; }
+        [LocalizedDisplayNameAttribute("Headline", NameResourceType = typeof(Resources.Entities.Bug.Fields))]
         public string Headline { get; set; }
+        [LocalizedDisplayNameAttribute("Severity", NameResourceType = typeof(Resources.Entities.Bug.Fields))]
         public string Severity { get; set; }
+        [LocalizedDisplayNameAttribute("ErrorType", NameResourceType = typeof(Resources.Entities.Bug.Fields))]
         public string ErrorType { get; set; }
+        [LocalizedDisplayNameAttribute("Description", NameResourceType = typeof(Resources.Entities.Bug.Fields))]
         public string Description { get; set; }
+        [LocalizedDisplayNameAttribute("ActualResult", NameResourceType = typeof(Resources.Entities.Bug.Fields))]
         public string ActualResult { get; set; }
+        [LocalizedDisplayNameAttribute("ExpectedResult", NameResourceType = typeof(Resources.Entities.Bug.Fields))]
         public string ExpectedResult { get; set; }
         //Attachment
         public int ProjectId { get; set; }
@@ -57,6 +70,7 @@ namespace BugTracker.Models
     public class Team
     {
         public int Id { get; set; }
+        [LocalizedDisplayNameAttribute("Name", NameResourceType = typeof(Resources.Entities.Team.Fields))]
         public string Name { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
         public virtual ICollection<ApplicationUser> Users { get; set; }
@@ -71,6 +85,7 @@ namespace BugTracker.Models
     public class Project
     {
         public int Id { get; set; }
+        [LocalizedDisplayNameAttribute("Name", NameResourceType = typeof(Resources.Entities.Project.Fields))]
         public string Name { get; set; }
         public int TeamId { get; set; }
         public Team Team { get; set; }

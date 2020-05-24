@@ -1,4 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Globalization;
+using System.Threading;
+using System.Web;
+using System.Web.Mvc;
 
 namespace BugTracker.Controllers
 {
@@ -12,6 +16,20 @@ namespace BugTracker.Controllers
             }
             else
                 return View();
+        }
+
+        public ActionResult Change(string LanguageAbbreviation)
+        {
+            if (!String.IsNullOrEmpty(LanguageAbbreviation))
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(LanguageAbbreviation);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(LanguageAbbreviation);
+            }
+            HttpCookie cookie = new HttpCookie("Language");
+            cookie.Value = LanguageAbbreviation;
+            Response.Cookies.Add(cookie);
+
+            return RedirectToAction("Index");
         }
     }
 }

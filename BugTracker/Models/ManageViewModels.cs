@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
+﻿using System.ComponentModel.DataAnnotations;
+using BugTracker.Resources.Entities.ApplicationUser;
+using BugTracker.Resources.Validation;
 
 namespace BugTracker.Models
 {
@@ -11,41 +10,22 @@ namespace BugTracker.Models
         public bool BrowserRemembered { get; set; }
     }
 
-    public class FactorViewModel
-    {
-        public string Purpose { get; set; }
-    }
-
-    public class SetPasswordViewModel
-    {
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "New password")]
-        public string NewPassword { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
-    }
-
     public class ChangePasswordViewModel
     {
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Current password")]
+        [LocalizedDisplayNameAttribute("Password", NameResourceType = typeof(Fields))]
         public string OldPassword { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceName = "MinLength", ErrorMessageResourceType = typeof(Errors), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "New password")]
+        [LocalizedDisplayNameAttribute("NewPassword", NameResourceType = typeof(Fields))]
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [LocalizedDisplayNameAttribute("ConfirmPassword", NameResourceType = typeof(Fields))]
+        [Compare("NewPassword", ErrorMessageResourceName = "MustMatch", ErrorMessageResourceType = typeof(Errors))]
         public string ConfirmPassword { get; set; }
     }
 }

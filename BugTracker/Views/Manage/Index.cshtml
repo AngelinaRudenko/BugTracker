@@ -1,6 +1,9 @@
-﻿@model BugTracker.Models.IndexViewModel
+﻿@using BugTracker.Resources.Views.Manage
+@using BugTracker.Resources.Views.Shared
+@model BugTracker.Models.IndexViewModel
+
 @{
-    ViewBag.Title = "My account";
+    ViewBag.Title = _Layout.Manage;
 }
 
 <p class="text-success">@ViewBag.StatusMessage</p>
@@ -8,22 +11,13 @@
     <hr />
     @Html.AntiForgeryToken()
     <dl class="dl-horizontal">
-        <dt>Password:</dt>
+        <dt>@Manage.Password</dt>
         <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
+            [ @Html.ActionLink(Manage.ChangePassword, "ChangePassword") ]
         </dd>
     </dl>
     <dl>
-        <dt>Personal information</dt>
-        <dd>[ @Html.ActionLink("Change", "ChangePersonalInfo", "Manage") ]</dd>
+        <dt>@Manage.PersonalInfo</dt>
+        <dd>[ @Html.ActionLink(Manage.ChangePersonalInfo, "ChangePersonalInfo", "Manage") ]</dd>
     </dl>
 </div>

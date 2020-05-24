@@ -1,13 +1,14 @@
-﻿@model IEnumerable<BugTracker.Models.Bug>
+﻿@using BugTracker.Resources.Views.Bug
+@model IEnumerable<BugTracker.Models.Bug>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = Index.PageLabel;
 }
 
-<h2>@ViewBag.Project.Name <small>Total bugs: @ViewBag.Project.Bugs.Count</small></h2>
+<h2>@ViewBag.Project.Name <small>@Index.TotalBugs: @ViewBag.Project.Bugs.Count</small></h2>
 
 <p>
-    @Html.ActionLink("Create New", "Add", new { projectId = ViewBag.Project.Id, projectName = ViewBag.Project.Name })
+    @Html.ActionLink(Index.CreateNew, "Add", new { projectId = ViewBag.Project.Id, projectName = ViewBag.Project.Name })
 </p>
 <table class="table table table-bordered table-hover">
     <thead class="thead-light">
@@ -35,37 +36,36 @@
             </th>
             <th></th>
         </tr>
-        </thead>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Headline)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Severity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ErrorType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ActualResult)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExpectedResult)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id, projectId = ViewBag.Project.Id, projectName = ViewBag.Project.Name }) |
-                    @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id, projectId = ViewBag.Project.Id })
-                </td>
-            </tr>
-        }
-
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Headline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Severity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ErrorType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActualResult)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpectedResult)
+            </td>
+            <td>
+                @Html.ActionLink(Index.Edit, "Edit", new { id = item.Id, projectId = ViewBag.Project.Id, projectName = ViewBag.Project.Name }) |
+                @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |*@
+                @Html.ActionLink(Index.Delete, "Delete", new { id = item.Id, projectId = ViewBag.Project.Id })
+            </td>
+        </tr>
+    }
 </table>

@@ -1,9 +1,12 @@
-﻿@using BugTracker.Models
+﻿@using BugTracker.Resources.Views.Shared
+@using BugTracker.Resources.Views.Team
+@using BugTracker.Models
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = _Layout.Teams;
 }
 
-<h2>Teams</h2>
+<h2>@_Layout.Teams</h2>
 
 <div class="card-deck">
     @foreach (Team team in Model)
@@ -21,8 +24,8 @@
                             </svg>
                         </a>
                     </h5>
-                    <p class="card-text">Team size: @team.Users.Count()</p>
-                    <a href="/Team/Edit/@team.Id/" class="btn btn-dark">Edit</a>
+                    <p class="card-text">@TeamRes.TeamSize: @team.Users.Count()</p>
+                    <a href="/Team/Edit/@team.Id/" class="btn btn-dark">@TeamRes.Edit</a>
                 </div>
             </div>
         </div>
@@ -31,8 +34,8 @@
     <div>
         <div class="card" style="width: 12rem;">
             <div class="card-body bg-dark text-warning">
-                <h5 class="card-title">Create new team</h5>
-                <a href="/Team/Create/" class="btn btn-warning">Create</a>
+                <h5 class="card-title">@TeamRes.CreateNewTeam</h5>
+                <a href="/Team/Create/" class="btn btn-warning">@TeamRes.Create</a>
             </div>
         </div>
     </div>

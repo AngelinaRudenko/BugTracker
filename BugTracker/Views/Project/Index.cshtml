@@ -1,9 +1,12 @@
-﻿@using BugTracker.Models
+﻿@using BugTracker.Resources.Views.Shared
+@using BugTracker.Resources.Views.Project
+@using BugTracker.Models
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = _Layout.Projects;
 }
 
-<h2>Projects</h2>
+<h2>@_Layout.Projects</h2>
 
 <div class="card-deck">
     @foreach (Project project in Model)
@@ -24,16 +27,16 @@
                     <p class="card-text">
                         @if (project.Team != null)
                         {
-                            <span>Team: @project.Team.Name</span>
+                            <span>@ProjectRes.Team: @project.Team.Name</span>
                         }
                         else
                         {
-                            <span>Team: not selected</span>
+                            <span>@ProjectRes.Team: @ProjectRes.NotSelected</span>
                         }
                         <br />
-                        Total bugs: @project.Bugs.Count <a href="/Bug/Index/@project.Id/">See</a>
+                        @ProjectRes.TotalBugs: @project.Bugs.Count <a href="/Bug/Index/@project.Id/">@ProjectRes.See</a>
                     </p>
-                    <a href="/Project/Edit/@project.Id/" class="btn btn-dark">Edit</a>
+                    <a href="/Project/Edit/@project.Id/" class="btn btn-dark">@ProjectRes.Edit</a>
                 </div>
             </div>
         </div>
@@ -42,8 +45,8 @@
     <div>
         <div class="card" style="width: 12rem;">
             <div class="card-body bg-dark text-warning">
-                <h5 class="card-title">Create new project</h5>
-                <a href="/Project/Create/" class="btn btn-warning">Create</a>
+                <h5 class="card-title">@ProjectRes.CreateNewProject</h5>
+                <a href="/Project/Create/" class="btn btn-warning">@ProjectRes.Create</a>
             </div>
         </div>
     </div>

@@ -1,21 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using BugTracker.Resources.Entities.ApplicationUser;
+using BugTracker.Resources.Validation;
 
 namespace BugTracker.Models
 {
      public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [LocalizedDisplayNameAttribute("Email", NameResourceType =typeof(Fields))]
         [EmailAddress]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [LocalizedDisplayNameAttribute("Password", NameResourceType = typeof(Fields))]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [LocalizedDisplayNameAttribute("RememberMe", NameResourceType = typeof(Fields))]
         public bool RememberMe { get; set; }
     }
 
@@ -23,28 +25,28 @@ namespace BugTracker.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [LocalizedDisplayNameAttribute("Email", NameResourceType = typeof(Fields))]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
-        [Display(Name = "Name")]
+        [StringLength(100, ErrorMessageResourceName = "MinLength", ErrorMessageResourceType = typeof(Errors), MinimumLength = 3)]    
+        [LocalizedDisplayNameAttribute("Name", NameResourceType = typeof(Fields))]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
-        [Display(Name = "Surname")]
+        [StringLength(100, ErrorMessageResourceName = "MinLength", ErrorMessageResourceType = typeof(Errors), MinimumLength = 3)]
+        [LocalizedDisplayNameAttribute("Surname", NameResourceType = typeof(Fields))]
         public string Surname { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessageResourceName = "MinLength", ErrorMessageResourceType = typeof(Errors), MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [LocalizedDisplayNameAttribute("Password", NameResourceType = typeof(Fields))]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [LocalizedDisplayNameAttribute("ConfirmPassword", NameResourceType = typeof(Fields))]
+        [Compare("Password", ErrorMessageResourceName = "MustMatch", ErrorMessageResourceType = typeof(Errors))]
         public string ConfirmPassword { get; set; }
     }
 }

@@ -1,8 +1,9 @@
-﻿@model BugTracker.Models.ApplicationUser
-@using BugTracker.Models
+﻿@using BugTracker.Models;
+@using BugTracker.Resources.Views.Account;
+@model BugTracker.Models.ApplicationUser
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = $"{Model.Name} {Model.Surname}";
 }
 
 <div>
@@ -19,7 +20,7 @@
         <dd>@Html.DisplayFor(model => model.Company)</dd>
     </dl>
 
-    <p><b>Friends</b></p>
+    <p><b>@Index.Friends</b></p>
     @if (ViewBag.Friends.Count != 0)
     {
         foreach (ApplicationUser friend in ViewBag.Friends)
@@ -32,7 +33,7 @@
                     </div>
                     @if (User.Identity.Name == Model.UserName)
                     {
-                        <a href="/Account/Unfriend/@friend.Id/"><button class="btn btn-success">Unfriend</button></a>
+                        <a href="/Account/Unfriend/@friend.Id/"><button class="btn btn-danger">@Index.Unfriend</button></a>
                     }
                 </div>
                 <div class="row">
@@ -46,40 +47,39 @@
     {
         if (User.Identity.Name == Model.UserName)
         {
-            <p>You have no friends yet</p>
+            <p>@Index.NoFriends</p>
         }
         else
         {
-            <p>@Model.Name @Model.Surname has no friends yet</p>
+            <p>@Model.Name @Model.Surname @Index.HasNoFriends</p>
         }
     }
-</div>
 
-@if (User.Identity.Name == Model.UserName)
-{
-    <p><b>Outgoing requests</b></p>
-    if (ViewBag.Requests.Count != 0)
+    @if (User.Identity.Name == Model.UserName)
     {
-        foreach (ApplicationUser notFriendYet in ViewBag.Requests)
+        <p><b>@Index.Requests</b></p>
+        if (ViewBag.Requests.Count != 0)
         {
-            <div class="form-group col-6">
-                <div class="row">
-                    <div class="col">
-                        @Html.ActionLink(notFriendYet.Name + " " + notFriendYet.Surname, "Index", "Account", routeValues: new { id = notFriendYet.Id }, htmlAttributes: null)
-                        <small class="text-muted col">@notFriendYet.Age</small>
-                    </div>                  
-                    <a href="/Account/Unfriend/@notFriendYet.Id/"><button class="btn btn-success">Cancel request</button></a>
+            foreach (ApplicationUser notFriendYet in ViewBag.Requests)
+            {
+                <div class="form-group col-6">
+                    <div class="row">
+                        <div class="col">
+                            @Html.ActionLink(notFriendYet.Name + " " + notFriendYet.Surname, "Index", "Account", routeValues: new { id = notFriendYet.Id }, htmlAttributes: null)
+                            <small class="text-muted col">@notFriendYet.Age</small>
+                        </div>
+                        <a href="/Account/Unfriend/@notFriendYet.Id/"><button class="btn btn-warning">@Index.CancelRequest</button></a>
+                    </div>
+                    <div class="row">
+                        <small class="text-muted col">@notFriendYet.Company @notFriendYet.Country</small>
+                    </div>
+                    <hr />
                 </div>
-                <div class="row">
-                    <small class="text-muted col">@notFriendYet.Company @notFriendYet.Country</small>
-                </div>
-                <hr />
-            </div>
+            }
+        }
+        else
+        {
+            <p>@Index.NoRequests</p>
         }
     }
-    else
-    {
-        <p>You have no outgoing requests</p>
-    }
-}
 </div>
